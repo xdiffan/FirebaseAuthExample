@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.catnip.firebaseauthexample.databinding.ActivitySplashBinding
 import com.catnip.firebaseauthexample.utils.GenericViewModelFactory
+import java.lang.IllegalStateException
 
 class SplashActivity : AppCompatActivity() {
 
