@@ -1,6 +1,8 @@
 package com.catnip.firebaseauthexample.data.repository
 
+import com.catnip.firebaseauthexample.data.network.firebase.auth.FirebaseAuthDataSource
 import com.catnip.firebaseauthexample.utils.ResultWrapper
+import com.catnip.firebaseauthexample.utils.proceedFlow
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
@@ -12,9 +14,9 @@ interface UserRepository {
     suspend fun doLogin(email:String,password:String):Flow<ResultWrapper<Boolean>>
 }
 
-class UserRepositoryImpl():UserRepository{
+class UserRepositoryImpl(private val dataSource: FirebaseAuthDataSource):UserRepository{
     override fun isLoggedIn(): Boolean {
-        TODO("Not yet implemented")
+        return dataSource.isLoggedIn()
     }
 
     override fun getCurrentUser(): FirebaseUser? {
@@ -22,7 +24,7 @@ class UserRepositoryImpl():UserRepository{
     }
 
     override fun doLogout(): Boolean {
-        TODO("Not yet implemented")
+        return dataSource.doLogout()
     }
 
     override suspend fun doRegister(
@@ -34,6 +36,6 @@ class UserRepositoryImpl():UserRepository{
     }
 
     override suspend fun doLogin(email: String, password: String): Flow<ResultWrapper<Boolean>> {
-        TODO("Not yet implemented")
+        return proceedFlow { dataSource.doLogin(email, password) }
     }
 }
